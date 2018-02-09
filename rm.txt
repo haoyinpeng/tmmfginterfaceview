@@ -1,1 +1,5 @@
 test the git rm command 
+
+modify 001:
+add new line 
+
