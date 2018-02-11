@@ -4,4 +4,4 @@ This is a private project: tm mfg interface table view
 virtualenv venv and pip install flask
 
 #modify 2
-last line is coding! 
+last line is coding and completed! 
