@@ -30,20 +30,24 @@ class get_db():
 
     # db connection
     def get_db_conn(self,env):
-        return cx_Oracle.connect(self.user_name,self.passwd,self.get_tns(env),encoding = 'UTF-8',nencoding = 'UTF-8') 
+        return cx_Oracle.connect(self.user_name,self.passwd,self.get_tns(env),encoding = 'UTF-8') 
 
-db = get_db('apps','debs1apps').get_db_conn('DERP')
+class get_result():
+    def __init__(self,what_res):
+        self.what_res = what_res
 
-print(db)
-err_cur = db.cursor()
-
-err_cur.execute(''' select * 
+    def exec_sql(self,db_conn,err_cur,sql_str01,params):
+        db_conn = get_db('apps','debs1apps').get_db_conn('DERP')
+        err_cur = db_conn.cursor()
+        err_cur.execute(''' select * 
                       from apps.meserpprodsum m 
                      where process_flag = :flag ''',flag = 'E')
+        return err_cur
+    
+    def get_res_rows(self,cursor_01,rows):
+        if rows:
+            res_many = cursor_01.fetchmany(rows)
+        else:
+            res_many = cursor_01.fetchall()
+        return res_many
 
-res_many = err_cur.fetchmany(3)
-
-print(res_many)
-
-
-db.close()
