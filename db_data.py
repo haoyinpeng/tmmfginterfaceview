@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
 
-import cx_Oracle
-import CONFIG
-import dbsession
 import os
 
-db_conn = dbsession.dbconnsingle('apps','debs1apps','DERP').db_conn()
+import CONFIG
+import cx_Oracle
+
+
 # env SIMPLIFIED CHINESE_CHINA.UTF8
 #os.environ['NLS_ALNG'] = 'SIMPLIFIED CHINESE_CHINA.UTF8'
 #os.environ['NLS_ALNG'] = 'AMERICAN_AMERICA.UTF8'
@@ -16,17 +16,11 @@ class get_result():
         self.what_res = what_res
     
     #db_conn,params
-    def exec_sql(self): 
+    def exec_sql(self,db_conn,sql_str,sql_param,rows): 
         err_cur = db_conn.cursor()
-        err_cur.execute(''' select * 
-                      from apps.meserpprodsum m 
-                     where process_flag = :flag ''',flag = 'E')
-        return err_cur
-    
-    def get_res_rows(self,cursor_01,rows):
+        err_cur.execute(sql_str,sql_param)
         if rows:
-            res_many = cursor_01.fetchmany(rows)
+            res_many = err_cur.fetchmany(rows)
         else:
-            res_many = cursor_01.fetchall()
+            res_many = err_cur.fetchall()
         return res_many
-
