@@ -14,16 +14,16 @@ class dbconnsingle():
     # tns info
     def db_tns(self,env):
         if env=='PERP':
-            return cx_Oracle.makedsn(CONFIG.DB_IP,CONFIG.DB_PORT,CONFIG.DB_INSTANCE_NAME)
+            return cx_Oracle.makedsn(CONFIG.P_DB_IP,CONFIG.P_DB_PORT,CONFIG.P_DB_INSTANCE_NAME)
         elif env == 'DERP':
-            print('DERP..',CONFIG.DB_IP,CONFIG.DB_PORT,CONFIG.DB_INSTANCE_NAME)
+            #print('DERP..',CONFIG.DB_IP,CONFIG.DB_PORT,CONFIG.DB_INSTANCE_NAME)
             return cx_Oracle.makedsn(CONFIG.DB_IP,CONFIG.DB_PORT,CONFIG.DB_INSTANCE_NAME)
         elif env == 'TERP':
-            return cx_Oracle.makedsn(CONFIG.DB_IP,CONFIG.DB_PORT,CONFIG.DB_INSTANCE_NAME)
+            return cx_Oracle.makedsn(CONFIG.T_DB_IP,CONFIG.T_DB_PORT,CONFIG.T_DB_INSTANCE_NAME)
         
     # db connection
     def db_conn(self):
-        return cx_Oracle.connect(self.user_name,self.passwd,self.db_tns(self.env),encoding = 'UTF-8') 
+        return cx_Oracle.connect(self.user_name,self.passwd,self.db_tns(self.env),encoding = 'UTF-8',nencoding = 'UTF-8') 
 
 
 class dbpool(cx_Oracle.SessionPool):
@@ -43,7 +43,7 @@ class dbpool(cx_Oracle.SessionPool):
             return cx_Oracle.makedsn(CONFIG.DB_IP,CONFIG.DB_PORT,CONFIG.DB_INSTANCE_NAME)
     
     def db_conn_pool(self):
-        return cx_Oracle.SessionPool(user=self.user_name,password=self.passwd,dsn=self.db_tns(self.env),min=1,max=500,increment=1)
+        return cx_Oracle.SessionPool(user=self.user_name,password=self.passwd,dsn=self.db_tns(self.env),min=1,max=500,increment=1,encoding = 'UTF-8',nencoding = 'UTF-8')
 
 
 
