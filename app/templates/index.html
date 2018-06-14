@@ -1,0 +1,26 @@
+
+<html>
+
+  <body>
+      <p>
+          table:
+      </p>
+      <ul>
+        <table border="1">
+            <th>
+                <td>日期</td>
+                <td>时间</td>
+            </th>
+          {% for conment in table %}
+            <tr>
+            {% for c in conment %}
+                <td>
+                    {{c}}
+                </td>
+            {% endfor %}
+            </tr>
+          {% endfor  %}
+        </table>
+      </ul>
+  </body>
+</html>
