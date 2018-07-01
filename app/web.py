@@ -6,7 +6,7 @@ import sql_set
 from flask import current_app,request
 from flask_sqlalchemy import SQLAlchemy,_EngineConnector
 from sqlalchemy import create_engine
-from CONFIG import config
+from config import config
 
 
 
